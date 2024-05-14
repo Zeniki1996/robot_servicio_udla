@@ -36,3 +36,27 @@
     transform: rotate(360deg);
   }
 }
+
+.background {
+  background-color: white; /* Fondo negro */
+  height: 100vh; /* Ajusta la altura para centrar verticalmente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pixel-art-container {
+  display: flex;
+  justify-content: center;
+}
+
+.pixel-art {
+  background-color: #fff; /* Color blanco del pixel art */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.smiley-face {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
