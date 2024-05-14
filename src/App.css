@@ -45,18 +45,11 @@
   align-items: center;
 }
 
-.pixel-art-container {
-  display: flex;
-  justify-content: center;
+
+body {
+  font-family: var(--font-inter), sans-serif;
 }
 
-.pixel-art {
-  background-color: #fff; /* Color blanco del pixel art */
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.smiley-face {
-  font-size: 24px;
-  margin-bottom: 10px;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-inter), sans-serif;
 }
