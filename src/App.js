@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import './App.css'; // Asegúrate de importar tus estilos CSS aquí
+import TelegramBot from 'node-telegram-bot-api'; // Importa la biblioteca
+import './App.css';
+
+const botToken = '7096839273:AAEGLfilLM7OT-96oFGNT6oYT5DtvC97fdI'; // Reemplaza con tu propio token
+const chatId = '7096839273'; // Reemplaza con el ID de chat al que quieres enviar mensajes
+const bot = new TelegramBot(botToken);
 
 // Componentes para la cara
 const Eyes = () => {
@@ -29,6 +34,8 @@ const SpeechToTextComponent = () => {
     }
 
     SpeechRecognition.startListening();
+    sendMessageToTelegram("OK"); 
+
   };
 
   const handleStop = () => {
@@ -40,6 +47,17 @@ const SpeechToTextComponent = () => {
   const handleSpeak = () => {
     const utterance = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(utterance);
+  };
+
+  // Función para enviar mensaje a Telegram
+  const sendMessageToTelegram = (message) => {
+    bot.sendMessage(chatId, message)
+      .then(() => {
+        console.log('Mensaje enviado a Telegram con éxito');
+      })
+      .catch((error) => {
+        console.error('Error al enviar el mensaje a Telegram:', error);
+      });
   };
 
   return (
