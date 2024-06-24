@@ -1,5 +1,11 @@
+<<<<<<< HEAD
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import { PorcupineWorker } from '@picovoice/porcupine-web';
+=======
 import React, { useState, useEffect } from "react";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+>>>>>>> ecbb79df8d2d47912508e353ed99a2c0ebb6eeee
 import "./App.css";
 
 // Imágenes utilizadas en el estado de la aplicación
@@ -17,8 +23,48 @@ const SpeechToTextComponent = () => {
   const [text, setText] = useState(""); // Estado para almacenar el texto reconocido
   const [status, setStatus] = useState("En espera"); // Estado para manejar el estado del reconocimiento de voz
   const [image, setImage] = useState(images.abierto); // Estado para manejar la imagen actual
+<<<<<<< HEAD
+  const [wakeWordDetected, setWakeWordDetected] = useState(false); // Estado para manejar la detección de la palabra clave
+  const { transcript, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition(); // Hook para el reconocimiento de voz
+  const porcupineWorkerRef = useRef(null);
+
+  // Inicializar Porcupine
+  useEffect(() => {
+    const initPorcupine = async () => {
+      try {
+        const accessKey = 'YOUR_ACCESS_KEY'; // Reemplaza con tu Access Key de Picovoice
+        const keywordPath = 'path/to/hola-mavi.ppn'; // Ruta al archivo .ppn
+
+        const porcupineWorker = await PorcupineWorker.create(
+          accessKey,
+          keywordPath,
+          (keywordIndex) => {
+            if (keywordIndex === 0) {
+              setWakeWordDetected(true);
+            }
+          }
+        );
+
+        porcupineWorkerRef.current = porcupineWorker;
+        await porcupineWorker.start();
+      } catch (error) {
+        console.error('Error initializing Porcupine:', error);
+      }
+    };
+
+    initPorcupine();
+
+    return () => {
+      if (porcupineWorkerRef.current) {
+        porcupineWorkerRef.current.terminate();
+      }
+    };
+  }, []);
+
+=======
   const { transcript, resetTranscript } = useSpeechRecognition(); // Hook para el reconocimiento de voz
 
+>>>>>>> ecbb79df8d2d47912508e353ed99a2c0ebb6eeee
   // Efecto para manejar el cambio de imagen en base al estado
   useEffect(() => {
     let interval;
@@ -34,6 +80,33 @@ const SpeechToTextComponent = () => {
     return () => clearInterval(interval); // Limpieza del intervalo cuando el componente se desmonta o el estado cambia
   }, [status]);
 
+<<<<<<< HEAD
+  useEffect(() => {
+    if (wakeWordDetected) {
+      handleListen();
+      setWakeWordDetected(false); // Reset the wake word detected state
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wakeWordDetected]);
+
+  const handleListen = useCallback(() => {
+    if (!browserSupportsSpeechRecognition) {
+      alert("Tu navegador no soporta reconocimiento de voz");
+      return;
+    }
+
+    setStatus("Escuchando");
+    SpeechRecognition.startListening({ continuous: true, language: "es-ES" });
+
+    // Handle the end event when the user stops speaking
+    const recognition = SpeechRecognition.getRecognition();
+    recognition.onend = () => {
+      setStatus("Pensando");
+      handleStop();
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [browserSupportsSpeechRecognition]);
+=======
   // Función para iniciar el reconocimiento de voz
   const handleListen = () => {
     if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
@@ -44,6 +117,7 @@ const SpeechToTextComponent = () => {
     SpeechRecognition.startListening({ language: "es-ES" });
     setStatus("Escuchando");
   };
+>>>>>>> ecbb79df8d2d47912508e353ed99a2c0ebb6eeee
 
   // Función para detener el reconocimiento de voz
   const handleStop = () => {
@@ -79,6 +153,31 @@ const SpeechToTextComponent = () => {
       setStatus("En espera");
       setImage(images.abierto);
     }
+<<<<<<< HEAD
+  };
+
+  const handleSpeak = (textToSpeak) => {
+    if (textToSpeak.trim()) {
+      setStatus("Hablando");
+      const utterance = new SpeechSynthesisUtterance(textToSpeak);
+      utterance.lang = "es-ES"; // Establecer el idioma a español
+      utterance.onend = () => {
+        setImage(images.guino);
+        setTimeout(() => {
+          setStatus("En espera");
+          setImage(images.abierto);
+          // Reset to listening for wake word
+          if (porcupineWorkerRef.current) {
+            porcupineWorkerRef.current.start();
+          }
+        }, 2000); // Cambiar la imagen a "guiño" por 2 segundos cuando termina de hablar
+      };
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert("No hay contenido en el cuadro de texto");
+    }
+=======
+>>>>>>> ecbb79df8d2d47912508e353ed99a2c0ebb6eeee
   };
 
   // Función para convertir texto en voz
