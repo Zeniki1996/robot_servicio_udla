@@ -1,12 +1,7 @@
-<<<<<<< HEAD
+
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { PorcupineWorker } from '@picovoice/porcupine-web';
-=======
-import React, { useState, useEffect } from "react";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
->>>>>>> ecbb79df8d2d47912508e353ed99a2c0ebb6eeee
-import "./App.css";
 
 // Imágenes utilizadas en el estado de la aplicación
 const images = {
@@ -23,7 +18,6 @@ const SpeechToTextComponent = () => {
   const [text, setText] = useState(""); // Estado para almacenar el texto reconocido
   const [status, setStatus] = useState("En espera"); // Estado para manejar el estado del reconocimiento de voz
   const [image, setImage] = useState(images.abierto); // Estado para manejar la imagen actual
-<<<<<<< HEAD
   const [wakeWordDetected, setWakeWordDetected] = useState(false); // Estado para manejar la detección de la palabra clave
   const { transcript, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition(); // Hook para el reconocimiento de voz
   const porcupineWorkerRef = useRef(null);
@@ -61,10 +55,6 @@ const SpeechToTextComponent = () => {
     };
   }, []);
 
-=======
-  const { transcript, resetTranscript } = useSpeechRecognition(); // Hook para el reconocimiento de voz
-
->>>>>>> ecbb79df8d2d47912508e353ed99a2c0ebb6eeee
   // Efecto para manejar el cambio de imagen en base al estado
   useEffect(() => {
     let interval;
@@ -80,7 +70,6 @@ const SpeechToTextComponent = () => {
     return () => clearInterval(interval); // Limpieza del intervalo cuando el componente se desmonta o el estado cambia
   }, [status]);
 
-<<<<<<< HEAD
   useEffect(() => {
     if (wakeWordDetected) {
       handleListen();
@@ -106,19 +95,7 @@ const SpeechToTextComponent = () => {
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [browserSupportsSpeechRecognition]);
-=======
-  // Función para iniciar el reconocimiento de voz
-  const handleListen = () => {
-    if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
-      alert("Tu navegador no soporta reconocimiento de voz");
-      return;
-    }
-    // Iniciar reconocimiento de voz en español
-    SpeechRecognition.startListening({ language: "es-ES" });
-    setStatus("Escuchando");
-  };
->>>>>>> ecbb79df8d2d47912508e353ed99a2c0ebb6eeee
-
+  
   // Función para detener el reconocimiento de voz
   const handleStop = () => {
     SpeechRecognition.stopListening();
@@ -153,7 +130,7 @@ const SpeechToTextComponent = () => {
       setStatus("En espera");
       setImage(images.abierto);
     }
-<<<<<<< HEAD
+
   };
 
   const handleSpeak = (textToSpeak) => {
@@ -176,28 +153,9 @@ const SpeechToTextComponent = () => {
     } else {
       alert("No hay contenido en el cuadro de texto");
     }
-=======
->>>>>>> ecbb79df8d2d47912508e353ed99a2c0ebb6eeee
+
   };
 
-  // Función para convertir texto en voz
-  const handleSpeak = (textToSpeak) => {
-    if (textToSpeak.trim()) {
-      setStatus("Hablando");
-      const utterance = new SpeechSynthesisUtterance(textToSpeak);
-      utterance.lang = "es-ES"; // Establecer el idioma a español
-      utterance.onend = () => {
-        setImage(images.guino);
-        setTimeout(() => {
-          setStatus("En espera");
-          setImage(images.abierto);
-        }, 2000); // Cambiar la imagen a "guiño" por 2 segundos cuando termina de hablar
-      };
-      window.speechSynthesis.speak(utterance);
-    } else {
-      alert("No hay contenido en el cuadro de texto");
-    }
-  };
 
   // Función para manejar la detección de la frase desencadenadora
   const handleWakeWord = () => {
