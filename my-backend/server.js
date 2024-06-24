@@ -34,26 +34,18 @@ app.post('/api/openai', async (req, res) => {
               top_n_documents: 5,
               authentication: {
                 type: "api_key",
-<<<<<<< HEAD
                 key: ""
               },
               key: ""
-=======
-                key: ""
-              },
-              key: ""
->>>>>>> ecbb79df8d2d47912508e353ed99a2c0ebb6eeee
+
             }
           }
         ],
         messages: [
           {
             role: "system",
-<<<<<<< HEAD
             content: "Te llamas ULI, eres un asistente virtual para la Universidad de las Americas (UDLA). Si te saludan debes responder con otro saludo, dando la bienvenida y explicando tu nombre y función. Es muy importante que si te realizan preguntas no relacionadas a la universidad simplemente respondas: 'Lo siento, no estoy seguro'. Responderás siempre de forma amigable y tratando de ayudar. Tratarás de responder en español a menos que las preguntas sean en otros idiomas."
-=======
-            content: "Te llamas ULI, eres un asistente virtual para la Universidad de las Americas (UDLA). Si te saludan debes responder con otro saludo, dando la bienvenida y explicando tu nombre y función. Es muy importante que si te realizan preguntas no relacionadas a la universidad simplemente respondas: 'Lo siento, no estoy seguro'. Responderás siempre de forma amigable y tratando de ayudar. Tratarás de responder en español a menos que las preguntas sean en otros idiomas. Y con cada respuesta escribe una palabra de emoción que detectes en la conversación"
->>>>>>> ecbb79df8d2d47912508e353ed99a2c0ebb6eeee
+
           },
           {
             role: "user",
